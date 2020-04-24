@@ -1,0 +1,51 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+  <div class="card table-container">
+    <div class="header">
+      <a class="button" href="/teachers/create">Novo</a>
+      <form action="/teachers" methos="GET">
+        <input
+        type="text"
+        name="filter"
+        placeholder="Nome ou matéria"
+        value="{{filter}}"
+        >
+        <button class="buttons" type="submit">Filtrar</button>
+      </form>
+    </div>
+
+    <table width="100%">
+      <thead>
+        <tr>
+          <th>Professor</th>
+          <th>Matéria</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for teacher in teachers %}
+          <tr>
+            <td>
+              <span style="background-image: url({{teacher.avatar_url}})"></span>
+              {{teacher.name}}
+            </td>
+            <td>{{teacher.subjects_taught}}</td>
+            <td> <a href="/teachers/{{teacher.id}}">Ver</a> </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+
+    <div
+      class="pagination"
+      data-page={{pagination.page}}
+      data-total={{pagination.total}}
+      data-filter={{filter}}
+    ></div>
+  </div>
+
+{% endblock content %}
